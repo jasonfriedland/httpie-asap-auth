@@ -1,6 +1,8 @@
 httpie-asap-auth
 ================
 
+[![Build Status](https://travis-ci.org/jasonfriedland/httpie-asap-auth.svg?branch=master)](https://travis-ci.org/jasonfriedland/httpie-asap-auth)
+
 ASAP Auth plugin for [HTTPie](https://httpie.org/).
 
 
