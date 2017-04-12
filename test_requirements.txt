@@ -7,7 +7,6 @@ cffi==1.10.0
 cryptography==1.8.1
 flake8==3.3.0
 httpie==0.9.9
-httpie-asap-auth==0.0.1
 idna==2.5
 isort==4.2.5
 lazy-object-proxy==1.2.2
