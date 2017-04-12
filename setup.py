@@ -7,7 +7,7 @@ from setuptools import setup
 setup(
     name='httpie-asap-auth',
     description='ASAP Auth plugin for HTTPie.',
-    long_description=open('README.md').read().strip(),
+    long_description='ASAP Auth plugin for HTTPie.',
     version='0.0.1',
     author='Jason Friedland',
     author_email='jason@friedland.id.au',
