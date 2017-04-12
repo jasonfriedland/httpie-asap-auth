@@ -48,7 +48,7 @@ class AsapAuth:
         try:
             with open(asap_config_file) as f:
                 config = json.load(f)
-        except FileNotFoundError:
+        except IOError:
             print('file not found: {}'.format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
         except json.decoder.JSONDecodeError:
