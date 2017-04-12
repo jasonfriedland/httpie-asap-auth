@@ -9,7 +9,7 @@ ASAP Auth plugin for [HTTPie](https://httpie.org/).
 Installation
 ------------
 
-    $ python setup.py install
+    $ pip install httpie-asap-auth
 
 
 You should now see `asap` under `--auth-type` in the `$ http --help` output.
