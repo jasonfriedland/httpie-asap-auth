@@ -83,12 +83,7 @@ class AsapAuthPlugin(AuthPlugin):
         """
         Get ASAP Auth.
 
-        NB. the --auth, -a option is used as the file path to the ASAP config.
+        NB. the --auth, -a option is used as the file path to the ASAP config, and
+            is accessible in self.raw_auth.
         """
-        asap_config_file = self.raw_auth
-        if asap_config_file is None:
-            print('missing ASAP config file, pass as: --auth, -a path/to/asap.config',
-                  file=sys.stderr)
-            sys.exit(ExitStatus.PLUGIN_ERROR)
-
-        return AsapAuth(asap_config_file)
+        return AsapAuth(self.raw_auth)

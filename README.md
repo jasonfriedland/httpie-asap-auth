@@ -17,3 +17,20 @@ Usage
 -----
 
     $ http --auth-type=asap --auth=path/to/asap.config http://example.com/
+
+
+Example ASAP Config
+-------------------
+
+Store your ASAP config in a file following this format:
+
+```
+{
+    "issuer": "webapp/admin",
+    "kid": "webapp/admin/dev.pem",
+    "audience": [
+        "webapp"
+    ],
+    "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
+}
+```
