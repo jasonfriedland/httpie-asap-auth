@@ -1,4 +1,5 @@
 # Makefile
+.PHONY: all install clean
 
 all:
 	python setup.py bdist
