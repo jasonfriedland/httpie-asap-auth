@@ -1,5 +1,4 @@
-# Makefile
-.PHONY: all install clean
+.PHONY: all install test clean
 
 all:
 	python setup.py bdist
@@ -9,3 +8,6 @@ install:
 
 test:
 	tox
+
+clean:
+	rm -rf build/ dist/ httpie_asap_auth.egg-info/
