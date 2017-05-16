@@ -23,6 +23,11 @@ def test_parse_broken_config(broken_asap_config_file):
         AsapAuth.parse_config(broken_asap_config_file)
 
 
+def test_parse_invalid_config(invalid_asap_config_file):
+    with pytest.raises(SystemExit):
+        AsapAuth.parse_config(invalid_asap_config_file)
+
+
 def test_auth_header(asap_config_file):
     request = AsapAuth(asap_config_file)(Request())
     assert 'Authorization' in request.headers

@@ -51,7 +51,7 @@ class AsapAuth:
         except IOError:
             print('file not found: {}'.format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
-        except json.decoder.JSONDecodeError:
+        except ValueError:
             print('invalid JSON config: {}'.format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
 
