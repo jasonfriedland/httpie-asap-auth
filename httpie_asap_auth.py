@@ -51,7 +51,7 @@ class AsapAuth:
         except IOError:
             print('file not found: {}'.format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
-        except json.decoder.JSONDecodeError:
+        except ValueError:
             print('invalid JSON config: {}'.format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
 
@@ -59,7 +59,7 @@ class AsapAuth:
             asap_config = AsapAuth.AsapConfig(iss=config['issuer'], kid=config['kid'],
                                               aud=config['audience'],
                                               private_key=config['privateKey'])
-        except (ValueError, AttributeError):
+        except (ValueError, AttributeError, KeyError):
             print('malformed JSON config: {}'.format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
 
