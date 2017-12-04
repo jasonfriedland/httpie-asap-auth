@@ -1,7 +1,6 @@
 {
   "issuer": "webapp/admin",
   "kid": "webapp/admin/test.pem",
-  "sub": "administration",
   "audience": [
     "webapp"
   ],

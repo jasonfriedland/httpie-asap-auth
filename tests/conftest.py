@@ -8,6 +8,11 @@ def asap_config_file():
 
 
 @pytest.fixture(scope='session')
+def asap_config_file_no_sub():
+    return os.path.join(os.path.dirname(__file__), 'data', 'asap.config.nosub')
+
+
+@pytest.fixture(scope='session')
 def broken_asap_config_file():
     return os.path.join(os.path.dirname(__file__), 'data', 'asap.config.broken')
 
