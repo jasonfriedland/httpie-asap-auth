@@ -1,4 +1,4 @@
-.PHONY: all install test clean
+.PHONY: all install test clean publish
 
 all:
 	python setup.py bdist
@@ -11,3 +11,6 @@ test:
 
 clean:
 	rm -rf build/ dist/ httpie_asap_auth.egg-info/
+
+publish:
+	python setup.py sdist upload -r pypi
