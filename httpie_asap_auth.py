@@ -22,18 +22,22 @@ class AsapAuth:
     """
     Implements ASAP Auth.
     """
-    AsapConfig = namedtuple('AsapConfig', ['iss', 'kid', 'aud', 'private_key'])
+    AsapConfig = namedtuple('AsapConfig', ['iss', 'kid', 'aud', 'sub', 'private_key'])
 
     def __init__(self, asap_config_file):
         asap_config = self.parse_config(asap_config_file)
         self.iss = asap_config.iss
         self.kid = asap_config.kid
         self.aud = asap_config.aud
+        self.sub = asap_config.sub
         self.private_key = asap_config.private_key
 
     def __call__(self, r):
+        kwargs = {}
+        if self.sub is not None:
+            kwargs = {'additional_claims': {'sub': self.sub}}
         signer = atlassian_jwt_auth.create_signer(self.iss, self.kid, self.private_key)
-        token = signer.generate_jwt(self.aud)
+        token = signer.generate_jwt(self.aud, **kwargs)
 
         r.headers['Authorization'] = 'Bearer {}'.format(token.decode('utf-8'))
 
@@ -56,9 +60,10 @@ class AsapAuth:
             sys.exit(ExitStatus.PLUGIN_ERROR)
 
         try:
-            asap_config = AsapAuth.AsapConfig(iss=config['issuer'], kid=config['kid'],
-                                              aud=config['audience'],
-                                              private_key=config['privateKey'])
+            asap_config = AsapAuth.AsapConfig(
+                iss=config['issuer'], aud=config['audience'], kid=config['kid'], private_key=config['privateKey'],  # Required
+                sub=config.get('sub')  # Optional
+            )
         except (ValueError, AttributeError, KeyError):
             print('malformed JSON config: {}'.format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
