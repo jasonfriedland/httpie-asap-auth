@@ -8,7 +8,7 @@ setup(
     name='httpie-asap-auth',
     description='ASAP Auth plugin for HTTPie.',
     long_description='ASAP Auth plugin for HTTPie.',
-    version='0.0.1',
+    version='0.0.2',
     author='Jason Friedland',
     author_email='jason@friedland.id.au',
     license='MIT',
