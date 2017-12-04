@@ -1,7 +1,7 @@
 import pytest
 
 from requests.models import Request
-from httpie_asap_auth import AsapAuth
+from httpie_asap_auth import AsapAuth, AsapAuthPlugin
 
 
 def test_parse_config(asap_config_file):
@@ -43,3 +43,9 @@ def test_auth_header(asap_config_file):
     request = AsapAuth(asap_config_file)(Request())
     assert 'Authorization' in request.headers
     assert request.headers['Authorization'].startswith('Bearer ')
+
+
+def test_auth_plugin(asap_config_file):
+    plugin = AsapAuthPlugin()
+    plugin.raw_auth = asap_config_file
+    plugin.get_auth()
