@@ -33,9 +33,9 @@ class AsapAuth:
         self.private_key = asap_config.private_key
 
     def __call__(self, request):
-        kwargs = {}
+        kwargs = {'additional_claims': {}}
         if self.sub is not None:
-            kwargs = {'additional_claims': {'sub': self.sub}}
+            kwargs['additional_claims']['sub'] = self.sub
         signer = atlassian_jwt_auth.create_signer(self.iss, self.kid, self.private_key)
         token = signer.generate_jwt(self.aud, **kwargs)
 
