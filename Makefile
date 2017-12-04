@@ -13,4 +13,5 @@ clean:
 	rm -rf build/ dist/ httpie_asap_auth.egg-info/
 
 publish:
-	python setup.py sdist upload -r pypi
+	python setup.py sdist
+	twine upload dist/*
