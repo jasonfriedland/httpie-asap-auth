@@ -13,7 +13,7 @@ from httpie import ExitStatus
 from httpie.plugins import AuthPlugin
 
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 __author__ = 'Jason Friedland'
 __licence__ = 'MIT'
 
@@ -32,16 +32,16 @@ class AsapAuth:
         self.sub = asap_config.sub
         self.private_key = asap_config.private_key
 
-    def __call__(self, r):
+    def __call__(self, request):
         kwargs = {}
         if self.sub is not None:
             kwargs = {'additional_claims': {'sub': self.sub}}
         signer = atlassian_jwt_auth.create_signer(self.iss, self.kid, self.private_key)
         token = signer.generate_jwt(self.aud, **kwargs)
 
-        r.headers['Authorization'] = 'Bearer {}'.format(token.decode('utf-8'))
+        request.headers['Authorization'] = 'Bearer {}'.format(token.decode('utf-8'))
 
-        return r
+        return request
 
     @staticmethod
     def parse_config(asap_config_file):
@@ -61,8 +61,11 @@ class AsapAuth:
 
         try:
             asap_config = AsapAuth.AsapConfig(
-                iss=config['issuer'], aud=config['audience'], kid=config['kid'], private_key=config['privateKey'],  # Required
-                sub=config.get('sub')  # Optional
+                # Required:
+                iss=config['issuer'], aud=config['audience'], kid=config['kid'],
+                private_key=config['privateKey'],
+                # Optional:
+                sub=config.get('sub')
             )
         except (ValueError, AttributeError, KeyError):
             print('malformed JSON config: {}'.format(asap_config_file), file=sys.stderr)

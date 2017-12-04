@@ -7,8 +7,9 @@ from setuptools import setup
 setup(
     name='httpie-asap-auth',
     description='ASAP Auth plugin for HTTPie.',
-    long_description='ASAP Auth plugin for HTTPie.',
-    version='0.0.2',
+    long_description='An ASAP (JWT-based) Auth plugin for HTTPie. '
+                     'See: https://s2sauth.bitbucket.io/spec/ for details.',
+    version='0.0.3',
     author='Jason Friedland',
     author_email='jason@friedland.id.au',
     license='MIT',
@@ -23,7 +24,7 @@ setup(
     },
     install_requires=[
         'httpie>=0.9.9',
-        'atlassian-jwt-auth>=2.10.2'
+        'atlassian-jwt-auth>=3.3.0'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
