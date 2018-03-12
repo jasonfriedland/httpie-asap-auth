@@ -5,9 +5,13 @@ from __future__ import print_function
 
 import json
 import sys
+import os
 
 from collections import namedtuple
 import atlassian_jwt_auth
+import atlassian_jwt_auth.key
+import atlassian_jwt_auth.signer
+import atlassian_jwt_auth.contrib.requests
 
 from httpie import ExitStatus
 from httpie.plugins import AuthPlugin
@@ -18,60 +22,49 @@ __author__ = 'Jason Friedland'
 __licence__ = 'MIT'
 
 
-class AsapAuth:
+def fatal_plugin_error(message):
+    print(message, file=sys.stderr)
+    sys.exit(ExitStatus.PLUGIN_ERROR)
+
+
+def process_env(env):
+    try:
+        provider = atlassian_jwt_auth.key.DataUriPrivateKeyRetriever(env['ASAP_PRIVATE_KEY'])
+        return (
+            atlassian_jwt_auth.signer.JWTAuthSigner(env['ASAP_ISSUER'], provider),
+            env['ASAP_AUDIENCE'].split(','),
+            {'sub': env['ASAP_SUBJECT']} if 'ASAP_SUBJECT' in env else {}
+        )
+    except KeyError as e:
+        fatal_plugin_error(
+            'missing {} in environment; '
+            'did you mean to specify a file using --auth?'.format(e))
+
+
+def process_config_file(asap_config_file):
     """
-    Implements ASAP Auth.
+    Parse ``asap_config_file`` JSON and return the signer and audience.
     """
-    AsapConfig = namedtuple('AsapConfig', ['iss', 'kid', 'aud', 'sub', 'private_key'])
 
-    def __init__(self, asap_config_file):
-        asap_config = self.parse_config(asap_config_file)
-        self.iss = asap_config.iss
-        self.kid = asap_config.kid
-        self.aud = asap_config.aud
-        self.sub = asap_config.sub
-        self.private_key = asap_config.private_key
+    try:
+        with open(asap_config_file) as f:
+            config = json.load(f)
+    except IOError:
+        fatal_plugin_error('file not readable: {}'.format(asap_config_file))
+    except ValueError:
+        fatal_plugin_error('invalid JSON config: {}'.format(asap_config_file))
 
-    def __call__(self, request):
-        kwargs = {'additional_claims': {}}
-        if self.sub is not None:
-            kwargs['additional_claims']['sub'] = self.sub
-        signer = atlassian_jwt_auth.create_signer(self.iss, self.kid, self.private_key)
-        token = signer.generate_jwt(self.aud, **kwargs)
+    if not isinstance(config, dict):
+        fatal_plugin_error('config file is not a json object')
 
-        request.headers['Authorization'] = 'Bearer {}'.format(token.decode('utf-8'))
-
-        return request
-
-    @staticmethod
-    def parse_config(asap_config_file):
-        """
-        Parse ``asap_config_file`` JSON and return the config required
-        to make a valid ASAP/JWT request.
-        """
-        try:
-            with open(asap_config_file) as f:
-                config = json.load(f)
-        except IOError:
-            print('file not found: {}'.format(asap_config_file), file=sys.stderr)
-            sys.exit(ExitStatus.PLUGIN_ERROR)
-        except ValueError:
-            print('invalid JSON config: {}'.format(asap_config_file), file=sys.stderr)
-            sys.exit(ExitStatus.PLUGIN_ERROR)
-
-        try:
-            asap_config = AsapAuth.AsapConfig(
-                # Required:
-                iss=config['issuer'], aud=config['audience'], kid=config['kid'],
-                private_key=config['privateKey'],
-                # Optional:
-                sub=config.get('sub')
-            )
-        except (ValueError, AttributeError, KeyError):
-            print('malformed JSON config: {}'.format(asap_config_file), file=sys.stderr)
-            sys.exit(ExitStatus.PLUGIN_ERROR)
-
-        return asap_config
+    try:
+        return (
+            atlassian_jwt_auth.create_signer(config['issuer'], config['kid'], config['privateKey']),
+            config['audience'],
+            {'sub': config['sub']} if 'sub' in config else {}
+        )
+    except KeyError as e:
+        fatal_plugin_error('missing {} in config file'.format(e))
 
 
 class AsapAuthPlugin(AuthPlugin):
@@ -83,7 +76,7 @@ class AsapAuthPlugin(AuthPlugin):
     description = 'See: https://s2sauth.bitbucket.io/spec/ for details.'
 
     # Require but don't parse auth
-    auth_require = True
+    auth_require = False
     auth_parse = False
     prompt_password = False
 
@@ -91,7 +84,18 @@ class AsapAuthPlugin(AuthPlugin):
         """
         Get ASAP Auth.
 
-        NB. the --auth, -a option is used as the file path to the ASAP config, and
-            is accessible in self.raw_auth.
+        If the --auth, -a option is provided, this is used as the file path to
+        the ASAP config (in JSON form). We access this via self.raw_auth rather
+        than username/password.
+
+        Otherwise, we attempt to use the environment variables ASAP_PRIVATE_KEY
+        (in data uri form with key id), ASAP_AUDIENCE, ASAP_ISSUER, and ASAP_SUBJECT
+        (if available).
         """
-        return AsapAuth(self.raw_auth)
+        if self.raw_auth:
+            (signer, audience, additional_claims) = process_config_file(self.raw_auth)
+        else:
+            (signer, audience, additional_claims) = process_env(os.environ)
+
+        return atlassian_jwt_auth.contrib.requests.JWTAuth(
+                signer, audience, additional_claims=additional_claims)

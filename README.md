@@ -20,6 +20,10 @@ Usage
 
     $ http --auth-type=asap --auth=path/to/asap.config http://example.com/
 
+OR, to read from environment variables:
+
+    $ http --auth-type=asap http://example.com/
+
 
 Example ASAP Config
 -------------------
@@ -38,3 +42,25 @@ Store your ASAP config in a file following this format:
 }
 ```
 NB. the subject (`sub` field) is optional. 
+
+Example environment variables
+-----------------------------
+
+    ASAP_PRIVATE_KEY=data:application/pkcs8;kid=key;base64,...
+    ASAP_ISSUER=webapp/admin
+    ASAP_AUDIENCE=webapp,foo
+    ASAP_SUBJECT=administration
+
+How to generate a data uri from an RSA private key pem file
+-----------------------------------------------------------
+
+    #!/bin/sh
+
+    # Usage: convert-pem-to-asap-data-uri.sh privatekey.pem
+
+    KID=$(echo "$1" | sed 's|/|%2F|g')
+    KEY=$(openssl pkcs8 -topk8 -inform PEM -outform DER -in "$1" -nocrypt | base64 | tr '\n' ' ' | sed 's| ||g')
+
+    echo "data:application/pkcs8;kid=$KID;base64,$KEY"
+
+(thanks to Brian McKenna)
