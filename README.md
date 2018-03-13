@@ -2,7 +2,7 @@ httpie-asap-auth
 ================
 
 [![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth) 
-[![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg?style=flat-square)](https://pypi.python.org/pypi/httpie-asap-auth) 
+[![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth) 
 [![Build Status](https://travis-ci.org/jasonfriedland/httpie-asap-auth.svg?branch=master)](https://travis-ci.org/jasonfriedland/httpie-asap-auth) 
 [![Coverage Status](https://coveralls.io/repos/github/jasonfriedland/httpie-asap-auth/badge.svg?branch=master)](https://coveralls.io/github/jasonfriedland/httpie-asap-auth?branch=master)
 
