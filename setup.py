@@ -9,7 +9,7 @@ setup(
     description='ASAP Auth plugin for HTTPie.',
     long_description='An ASAP (JWT-based) Auth plugin for HTTPie. '
                      'See: https://s2sauth.bitbucket.io/spec/ for details.',
-    version='0.0.5',
+    version='0.0.6',
     author='Jason Friedland',
     author_email='jason@friedland.id.au',
     license='MIT',
