@@ -9,5 +9,5 @@ install:
 script:
   - "pytest -v -s --doctest-modules --cov httpie_asap_auth --cov-report term-missing httpie_asap_auth.py tests/"
   - "flake8 httpie_asap_auth.py"
-ater_success:
+after_success:
   - "coveralls"
