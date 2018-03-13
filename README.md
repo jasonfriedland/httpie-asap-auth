@@ -1,7 +1,10 @@
 httpie-asap-auth
 ================
 
-[![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth) [![Build Status](https://travis-ci.org/jasonfriedland/httpie-asap-auth.svg?branch=master)](https://travis-ci.org/jasonfriedland/httpie-asap-auth)
+[![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth) 
+[![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg?style=flat-square)](https://pypi.python.org/pypi/httpie-asap-auth) 
+[![Build Status](https://travis-ci.org/jasonfriedland/httpie-asap-auth.svg?branch=master)](https://travis-ci.org/jasonfriedland/httpie-asap-auth) 
+[![Coverage Status](https://coveralls.io/repos/github/jasonfriedland/httpie-asap-auth/badge.svg?branch=master)](https://coveralls.io/github/jasonfriedland/httpie-asap-auth?branch=master)
 
 [ASAP](https://s2sauth.bitbucket.io/) Auth plugin for [HTTPie](https://httpie.org/).
 
@@ -24,6 +27,7 @@ OR, to read from environment variables:
 
     $ http --auth-type=asapenv --auth=audience[:subject] http://example.com/
 
+Separate multiple audiences with a comma.
 
 Example ASAP Config
 -------------------
@@ -43,16 +47,18 @@ Store your ASAP config in a file following this format:
 ```
 NB. the subject (`sub` field) is optional. 
 
-Example environment variables
+Example Environment Variables
 -----------------------------
 
     ASAP_PRIVATE_KEY=data:application/pkcs8;kid=webapp;base64,...
     ASAP_ISSUER=webapp/admin
 
-(if you have multiple audiences, you should comma separate them)
 
-How to generate a data uri from an RSA private key pem file
------------------------------------------------------------
+Generate a Data URI
+-------------------
+
+Generate a data URI, with the key in PKCS8 from an RSA private key PEM file:
+
 
     #!/bin/sh
 
