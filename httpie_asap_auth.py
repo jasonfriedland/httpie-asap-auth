@@ -56,6 +56,7 @@ class AsapAuthPlugin(AuthPlugin):
         """
         Parse ``asap_config_file`` JSON and return the signer and audience.
         """
+        config = None
 
         try:
             with open(asap_config_file) as f:
@@ -65,8 +66,8 @@ class AsapAuthPlugin(AuthPlugin):
         except ValueError:
             fatal_plugin_error('invalid JSON config: {}'.format(asap_config_file))
 
-        if not isinstance(config, dict):
-            fatal_plugin_error('config file is not a json object')
+        if config and not isinstance(config, dict):
+            fatal_plugin_error('invalid JSON config (expected dict): {}'.format(asap_config_file))
 
         try:
             return (
@@ -75,7 +76,7 @@ class AsapAuthPlugin(AuthPlugin):
                 config.get('sub')
             )
         except KeyError as e:
-            fatal_plugin_error('missing {} in config file'.format(e))
+            fatal_plugin_error('expected key in config file: {}'.format(e))
 
 
 class AsapAuthEnvPlugin(AuthPlugin):
