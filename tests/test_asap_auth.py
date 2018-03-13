@@ -34,6 +34,11 @@ def test_parse_invalid_config(invalid_asap_config_file):
         get_auth(invalid_asap_config_file)
 
 
+def test_parse_invalid_json_config(invalid_json_asap_config_file):
+    with pytest.raises(SystemExit):
+        get_auth(invalid_json_asap_config_file)
+
+
 def get_auth(config_file):
     plugin = AsapAuthPlugin()
     plugin.raw_auth = config_file
