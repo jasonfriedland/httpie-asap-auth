@@ -46,6 +46,10 @@ class AsapAuthPlugin(AuthPlugin):
         The --auth, -a option is used as the file path to the ASAP config
         (in JSON form). We access this via self.raw_auth rather
         than username/password.
+
+        :param str username: Unused.
+        :param str password: Unused.
+        :return: atlassian_jwt_auth.contrib.requests.JWTAuth
         """
         (signer, audience, subject) = self.parse_config_file(self.raw_auth)
         return atlassian_jwt_auth.contrib.requests.JWTAuth(
@@ -54,7 +58,12 @@ class AsapAuthPlugin(AuthPlugin):
     @staticmethod
     def parse_config_file(asap_config_file):
         """
-        Parse ``asap_config_file`` JSON and return the signer and audience.
+        Parse ``asap_config_file`` JSON and return the signer.
+
+        :param str asap_config_file: Path to the ASAP config file.
+
+        :return: atlassian_jwt_auth.signer.JWTAuthSigner
+        :raises ExitStatus.PLUGIN_ERROR: Invalid config.
         """
         config = None
 
@@ -99,6 +108,11 @@ class AsapAuthEnvPlugin(AuthPlugin):
         We use the environment variables ASAP_PRIVATE_KEY (data_uri form) and
         ASAP_ISSUER for ASAP configuration, augmented by --auth, -a (which provides
         audience1,audience2,...:subject). Subjects are optional.
+
+        :param str username: Unused.
+        :param str password: Unused.
+
+        :return: atlassian_jwt_auth.contrib.requests.JWTAuth
         """
         signer = self.construct_signer_from_env(os.environ)
         audience, subject = self.parse_auth(self.raw_auth)
@@ -107,6 +121,14 @@ class AsapAuthEnvPlugin(AuthPlugin):
 
     @staticmethod
     def construct_signer_from_env(env):
+        """
+        Returns a new JWT signer initialised using values from the environment.
+
+        :param dict env: A dict holding the shell environment.
+
+        :return: atlassian_jwt_auth.signer.JWTAuthSigner
+        :raises ExitStatus.PLUGIN_ERROR: Invalid environment.
+        """
         try:
             provider = atlassian_jwt_auth.key.DataUriPrivateKeyRetriever(env['ASAP_PRIVATE_KEY'])
             return atlassian_jwt_auth.signer.JWTAuthSigner(env['ASAP_ISSUER'], provider)
@@ -115,6 +137,21 @@ class AsapAuthEnvPlugin(AuthPlugin):
 
     @staticmethod
     def parse_auth(auth):
+        """
+        Parse the ``auth`` arg and return the audience and subject.
+
+        >>> AsapAuthEnvPlugin.parse_auth("foo,bar:baz")
+        (['foo', 'bar'], 'baz')
+
+        >>> AsapAuthEnvPlugin.parse_auth(":baz")
+        ([''], 'baz')
+
+        >>> AsapAuthEnvPlugin.parse_auth("foo")
+        (['foo'], None)
+
+        :param str auth: The ``auth`` arg passed on the CLI. Contains the audience and subject.
+        :return: tuple(List[str], str)
+        """
         auth = auth.split(':', 1)
 
         if len(auth) == 1:
