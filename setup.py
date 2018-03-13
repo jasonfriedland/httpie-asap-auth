@@ -19,7 +19,8 @@ setup(
     zip_safe=False,
     entry_points={
         'httpie.plugins.auth.v1': [
-            'httpie_asap_auth = httpie_asap_auth:AsapAuthPlugin'
+            'httpie_asap_auth = httpie_asap_auth:AsapAuthPlugin',
+            'httpie_asap_auth_env = httpie_asap_auth:AsapAuthEnvPlugin'
         ]
     },
     install_requires=[
