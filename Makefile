@@ -1,7 +1,10 @@
-.PHONY: all install test clean publish
+.PHONY: all fmt install test clean publish
 
 all:
 	python setup.py bdist
+
+fmt:
+	git ls-files **/*.py | xargs black
 
 install:
 	python setup.py install

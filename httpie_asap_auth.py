@@ -13,16 +13,16 @@ from httpie import ExitStatus
 from httpie.plugins import AuthPlugin
 
 
-__version__ = '0.0.5'
-__author__ = 'Jason Friedland'
-__licence__ = 'MIT'
+__version__ = "0.0.5"
+__author__ = "Jason Friedland"
+__licence__ = "MIT"
 
 
 class AsapAuth:
     """
     Implements ASAP Auth.
     """
-    AsapConfig = namedtuple('AsapConfig', ['iss', 'kid', 'aud', 'sub', 'private_key'])
+    AsapConfig = namedtuple("AsapConfig", ["iss", "kid", "aud", "sub", "private_key"])
 
     def __init__(self, asap_config_file):
         asap_config = self.parse_config(asap_config_file)
@@ -33,13 +33,13 @@ class AsapAuth:
         self.private_key = asap_config.private_key
 
     def __call__(self, request):
-        kwargs = {'additional_claims': {}}
+        kwargs = {"additional_claims": {}}
         if self.sub is not None:
-            kwargs['additional_claims']['sub'] = self.sub
+            kwargs["additional_claims"]["sub"] = self.sub
         signer = atlassian_jwt_auth.create_signer(self.iss, self.kid, self.private_key)
         token = signer.generate_jwt(self.aud, **kwargs)
 
-        request.headers['Authorization'] = 'Bearer {}'.format(token.decode('utf-8'))
+        request.headers["Authorization"] = "Bearer {}".format(token.decode("utf-8"))
 
         return request
 
@@ -53,22 +53,24 @@ class AsapAuth:
             with open(asap_config_file) as f:
                 config = json.load(f)
         except IOError:
-            print('file not found: {}'.format(asap_config_file), file=sys.stderr)
+            print("file not found: {}".format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
         except ValueError:
-            print('invalid JSON config: {}'.format(asap_config_file), file=sys.stderr)
+            print("invalid JSON config: {}".format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
 
         try:
             asap_config = AsapAuth.AsapConfig(
                 # Required:
-                iss=config['issuer'], aud=config['audience'], kid=config['kid'],
-                private_key=config['privateKey'],
+                iss=config["issuer"],
+                aud=config["audience"],
+                kid=config["kid"],
+                private_key=config["privateKey"],
                 # Optional:
-                sub=config.get('sub')
+                sub=config.get("sub"),
             )
         except (ValueError, AttributeError, KeyError):
-            print('malformed JSON config: {}'.format(asap_config_file), file=sys.stderr)
+            print("malformed JSON config: {}".format(asap_config_file), file=sys.stderr)
             sys.exit(ExitStatus.PLUGIN_ERROR)
 
         return asap_config
@@ -78,9 +80,9 @@ class AsapAuthPlugin(AuthPlugin):
     """
     ASAP Auth plugin for HTTPie.
     """
-    name = 'ASAP Auth'
-    auth_type = 'asap'
-    description = 'See: https://s2sauth.bitbucket.io/spec/ for details.'
+    name = "ASAP Auth"
+    auth_type = "asap"
+    description = "See: https://s2sauth.bitbucket.io/spec/ for details."
 
     # Require but don't parse auth
     auth_require = True
