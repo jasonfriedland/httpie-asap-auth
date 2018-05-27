@@ -1,10 +1,10 @@
 httpie-asap-auth
 ================
 
-[![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth) 
-[![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth) 
-[![Build Status](https://travis-ci.org/jasonfriedland/httpie-asap-auth.svg?branch=master)](https://travis-ci.org/jasonfriedland/httpie-asap-auth) 
-[![Coverage Status](https://coveralls.io/repos/github/jasonfriedland/httpie-asap-auth/badge.svg?branch=master)](https://coveralls.io/github/jasonfriedland/httpie-asap-auth?branch=master)
+[![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
+[![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
+[![Build Status](https://travis-ci.org/jasonfriedland/httpie-asap-auth.svg?branch=master)](https://travis-ci.org/jasonfriedland/httpie-asap-auth)
+[![Coverage Status](https://coveralls.io/repos/github/jasonfriedland/httpie-asap-auth/badge.svg?branch=master)](https://coveralls.io/github/jasonfriedland/httpie-asap-auth?branch=master) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 [ASAP](https://s2sauth.bitbucket.io/) Auth plugin for [HTTPie](https://httpie.org/).
 
@@ -45,7 +45,7 @@ Store your ASAP config in a file following this format:
     "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
 }
 ```
-NB. the subject (`sub` field) is optional. 
+NB. the subject (`sub` field) is optional.
 
 Example Environment Variables
 -----------------------------
