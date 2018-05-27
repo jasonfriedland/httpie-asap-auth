@@ -4,7 +4,7 @@ all:
 	python setup.py bdist
 
 fmt:
-	git ls-files **/*.py | xargs black
+	git ls-files *.py **/*.py | xargs black
 
 install:
 	python setup.py install
