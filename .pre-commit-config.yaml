@@ -1,0 +1,7 @@
+- repo: local
+  hooks:
+  - id: black
+    name: black
+    entry: black
+    language: python
+    types: [python]
