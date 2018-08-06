@@ -16,7 +16,7 @@ cryptography==2.3
 docopt==0.6.2
 enum34==1.1.6
 funcsigs==1.0.2
-futures==3.2.0
+futures==3.1.1
 httpie==0.9.9
 httpie-asap-auth==0.0.9
 idna==2.7
