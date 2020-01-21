@@ -23,7 +23,7 @@ setup(
             "httpie_asap_auth_env = httpie_asap_auth:AsapAuthEnvPlugin",
         ]
     },
-    install_requires=["httpie>=0.9.9", "atlassian-jwt-auth>=3.3.0"],
+    install_requires=["httpie>=2.0.0", "atlassian-jwt-auth>=5.0.3"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python",
@@ -31,6 +31,7 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Environment :: Plugins",
         "License :: OSI Approved :: MIT License",
         "Topic :: Internet :: WWW/HTTP",

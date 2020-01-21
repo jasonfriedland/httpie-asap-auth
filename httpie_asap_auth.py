@@ -12,7 +12,7 @@ import atlassian_jwt_auth.key
 import atlassian_jwt_auth.signer
 import atlassian_jwt_auth.contrib.requests
 
-from httpie import ExitStatus
+from httpie.status import ExitStatus
 from httpie.plugins import AuthPlugin
 
 
