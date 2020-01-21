@@ -19,7 +19,7 @@ filelock==3.0.12
 funcsigs==1.0.2
 futures==3.1.1
 httpie==2.0.0
-httpie-asap-auth==0.2.0
+httpie-asap-auth==0.2.1
 idna==2.8
 importlib-metadata==1.4.0
 ipaddress==1.0.23
