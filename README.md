@@ -8,24 +8,21 @@ httpie-asap-auth
 
 [ASAP](https://s2sauth.bitbucket.io/) Auth plugin for [HTTPie](https://httpie.org/).
 
-
 Installation
 ------------
 
-    $ pip install httpie-asap-auth
-
+    pip install httpie-asap-auth
 
 You should now see `asap` and `asapenv` under `--auth-type` in the `$ http --help` output.
-
 
 Usage
 -----
 
-    $ http --auth-type=asap --auth=path/to/asap.config http://example.com/
+    http --auth-type=asap --auth=path/to/asap.config http://example.com/
 
 OR, to read from environment variables:
 
-    $ http --auth-type=asapenv --auth=audience[:subject] http://example.com/
+    http --auth-type=asapenv --auth=audience[:subject] http://example.com/
 
 Separate multiple audiences with a comma.
 
@@ -34,7 +31,7 @@ Example ASAP Config
 
 Store your ASAP config in a file following this format:
 
-```
+```json
 {
     "issuer": "webapp/admin",
     "kid": "webapp/admin/dev.pem",
@@ -45,6 +42,7 @@ Store your ASAP config in a file following this format:
     "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
 }
 ```
+
 NB. the subject (`sub` field) is optional.
 
 Example Environment Variables
@@ -53,16 +51,14 @@ Example Environment Variables
     ASAP_PRIVATE_KEY=data:application/pkcs8;kid=webapp;base64,...
     ASAP_ISSUER=webapp/admin
 
-
 Generate a Data URI
 -------------------
 
 Generate a data URI, with the key in PKCS8 from an RSA private key PEM file:
 
-
     #!/bin/sh
 
-    # Usage: convert-pem-to-asap-data-uri.sh privatekey.pem
+    # Usage: $0 privatekey.pem
 
     KID=$(echo "$1" | sed 's|/|%2F|g')
     KEY=$(openssl pkcs8 -topk8 -inform PEM -outform DER -in "$1" -nocrypt | base64 | tr '\n' ' ' | sed 's| ||g')
