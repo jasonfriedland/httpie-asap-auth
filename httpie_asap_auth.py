@@ -16,7 +16,6 @@ from httpie.status import ExitStatus
 from httpie.plugins import AuthPlugin
 
 
-__version__ = "0.0.9"
 __author__ = "Jason Friedland"
 __licence__ = "MIT"
 
