@@ -29,6 +29,7 @@ class AsapAuthPlugin(AuthPlugin):
     """
     ASAP Auth plugin for HTTPie, reading from config file.
     """
+
     name = "ASAP Auth"
     auth_type = "asap"
     description = "See: https://s2sauth.bitbucket.io/spec/ for details."
@@ -96,6 +97,7 @@ class AsapAuthEnvPlugin(AuthPlugin):
     """
     ASAP Auth plugin for HTTPie, reading from environment.
     """
+
     name = "ASAP Auth from environment"
     auth_type = "asapenv"
     description = "See: https://s2sauth.bitbucket.io/spec/ for details."
