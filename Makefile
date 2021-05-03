@@ -15,6 +15,7 @@ test:
 clean:
 	rm -rf build/ dist/ httpie_asap_auth.egg-info/
 
+# Publish to PyPi - obtain a token and place it in ~/.pypirc
 publish:
 	python setup.py sdist
 	twine upload dist/*
