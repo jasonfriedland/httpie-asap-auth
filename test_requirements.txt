@@ -9,10 +9,12 @@ CacheControl==0.12.6
 certifi==2019.11.28
 cffi==1.13.2
 chardet==3.0.4
+charset-normalizer==2.0.12
 configparser==4.0.2
 coverage==5.0.3
 coveralls==1.10.0
 cryptography==3.3.2
+defusedxml==0.7.1
 docopt==0.6.2
 enum34==1.1.6
 filelock==3.0.12
@@ -27,6 +29,7 @@ lazy-object-proxy==1.4.3
 more-itertools==8.1.0
 msgpack==0.6.2
 msgpack-python==0.5.6
+multidict==6.0.2
 packaging==20.0
 pathlib2==2.3.5
 pluggy==0.13.1
@@ -35,9 +38,11 @@ pycparser==2.19
 Pygments==2.7.4
 PyJWT==1.7.1
 pyparsing==2.4.6
+PySocks==1.7.1
 pytest==5.3.4
 pytest-cov==2.8.1
-requests==2.22.0
+requests==2.27.1
+requests-toolbelt==0.9.1
 scandir==1.10.0
 singledispatch==3.4.0.3
 six==1.14.0
