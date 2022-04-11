@@ -9,7 +9,7 @@ setup(
     description="ASAP Auth plugin for HTTPie.",
     long_description="An ASAP (JWT-based) Auth plugin for HTTPie. "
     "See: https://s2sauth.bitbucket.io/spec/ for details.",
-    version="0.2.6",
+    version="0.3.0",
     author="Jason Friedland",
     author_email="jason@friedland.id.au",
     license="MIT",
@@ -28,7 +28,6 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
