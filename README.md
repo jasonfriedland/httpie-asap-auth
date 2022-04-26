@@ -3,7 +3,7 @@ httpie-asap-auth
 
 [![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
 [![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
-[![Actions Status](https://github.com/jasonfriedland/httpie-asap-auth/workflows/Python%20package/badge.svg)](https://github.com/jasonfriedland/httpie-asap-auth/actions)
+[![Actions Status](https://github.com/jasonfriedland/httpie-asap-auth/workflows/test/badge.svg)](https://github.com/jasonfriedland/httpie-asap-auth/actions)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 [ASAP](https://s2sauth.bitbucket.io/) Auth plugin for [HTTPie](https://httpie.org/).
