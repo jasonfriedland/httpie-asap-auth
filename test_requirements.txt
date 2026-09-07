@@ -22,7 +22,7 @@ funcsigs==1.0.2
 futures==3.1.1
 httpie==3.1.0
 httpie-asap-auth==0.2.1
-idna==2.8
+idna==3.15
 importlib-metadata==1.4.0
 ipaddress==1.0.23
 lazy-object-proxy==1.4.3
