@@ -7,7 +7,7 @@ name = "httpie-asap-auth"
 version = "0.4.0"
 description = "ASAP Auth plugin for HTTPie."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = { file = "LICENSE" }
 authors = [
     { name = "Jason Friedland", email = "jason@friedland.id.au" },
@@ -16,7 +16,6 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -56,4 +55,4 @@ py-modules = ["httpie_asap_auth"]
 zip-safe = false
 
 [tool.black]
-target-version = ["py37"]
+target-version = ["py38"]

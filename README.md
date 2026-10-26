@@ -13,7 +13,7 @@ Installation
 
     pip install httpie-asap-auth
 
-Python 3.7 through Python 3.14 are supported.
+Python 3.8 through Python 3.14 are supported.
 
 You should now see `asap` and `asapenv` under `--auth-type` in the `$ http --help` output.
 
@@ -82,7 +82,7 @@ Run the test suite and formatter with the locked dependencies:
     make test
     make fmt
 
-The formatter runs on Python 3.14 while preserving Python 3.7-compatible
+The formatter runs on Python 3.14 while preserving Python 3.8-compatible
 syntax.
 
 Upgrade all dependencies and review the resulting lockfile with:
