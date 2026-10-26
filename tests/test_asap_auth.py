@@ -49,6 +49,6 @@ def generate_and_decode_token(public_key, config_file):
     request = get_auth(config_file)(Request())
 
     assert "Authorization" in request.headers
-    (authtype, token) = request.headers["Authorization"].decode("utf-8").split()
+    authtype, token = request.headers["Authorization"].decode("utf-8").split()
     assert authtype == "Bearer"
     return jwt.decode(token, public_key, algorithms=["RS256"], audience="webapp")

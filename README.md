@@ -13,6 +13,8 @@ Installation
 
     pip install httpie-asap-auth
 
+Python 3.7 through Python 3.14 are supported.
+
 You should now see `asap` and `asapenv` under `--auth-type` in the `$ http --help` output.
 
 Usage
@@ -66,3 +68,32 @@ Generate a data URI, with the key in PKCS8 from an RSA private key PEM file:
     echo "data:application/pkcs8;kid=$KID;base64,$KEY"
 
 (thanks to Brian McKenna)
+
+Development
+-----------
+
+[Install uv](https://docs.astral.sh/uv/getting-started/installation/), then create
+the development environment from the committed lockfile:
+
+    make sync
+
+Run the test suite and formatter with the locked dependencies:
+
+    make test
+    make fmt
+
+The formatter runs on Python 3.14 while preserving Python 3.7-compatible
+syntax.
+
+Upgrade all dependencies and review the resulting lockfile with:
+
+    make upgrade
+
+Build the source and wheel distributions with:
+
+    make build
+
+Maintainers can publish the built distributions after configuring uv's PyPI
+credentials:
+
+    make publish
