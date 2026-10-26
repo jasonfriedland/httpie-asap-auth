@@ -2,6 +2,6 @@
   hooks:
   - id: black
     name: black
-    entry: black
-    language: python
+    entry: uv run --locked --python 3.14 --group format black
+    language: system
     types: [python]

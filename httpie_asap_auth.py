@@ -1,6 +1,7 @@
 """
 ASAP Auth plugin for HTTPie.
 """
+
 from __future__ import print_function
 
 import json
@@ -14,7 +15,6 @@ import atlassian_jwt_auth.contrib.requests
 
 from httpie.status import ExitStatus
 from httpie.plugins import AuthPlugin
-
 
 __author__ = "Jason Friedland"
 __licence__ = "MIT"
@@ -51,7 +51,7 @@ class AsapAuthPlugin(AuthPlugin):
         :param str password: Unused.
         :return: atlassian_jwt_auth.contrib.requests.JWTAuth
         """
-        (signer, audience, subject) = self.parse_config_file(self.raw_auth)
+        signer, audience, subject = self.parse_config_file(self.raw_auth)
         return atlassian_jwt_auth.contrib.requests.JWTAuth(
             signer, audience, additional_claims={"sub": subject} if subject else {}
         )

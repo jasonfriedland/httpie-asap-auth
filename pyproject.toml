@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "httpie-asap-auth"
+version = "0.4.0"
+description = "ASAP Auth plugin for HTTPie."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Jason Friedland", email = "jason@friedland.id.au" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Environment :: Plugins",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "atlassian-jwt-auth>=10.1.0",
+    "httpie>=3.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jasonfriedland/httpie-asap-auth"
+Download = "https://github.com/jasonfriedland/httpie-asap-auth"
+
+[project.entry-points."httpie.plugins.auth.v1"]
+httpie_asap_auth = "httpie_asap_auth:AsapAuthPlugin"
+httpie_asap_auth_env = "httpie_asap_auth:AsapAuthEnvPlugin"
+
+[dependency-groups]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+format = [
+    "black",
+]
+
+[tool.setuptools]
+py-modules = ["httpie_asap_auth"]
+zip-safe = false
+
+[tool.black]
+target-version = ["py38"]
