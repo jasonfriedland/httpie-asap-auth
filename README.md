@@ -1,5 +1,4 @@
-httpie-asap-auth
-================
+# httpie-asap-auth
 
 [![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
 [![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
@@ -8,17 +7,15 @@ httpie-asap-auth
 
 [ASAP](https://s2sauth.bitbucket.io/) Auth plugin for [HTTPie](https://httpie.org/).
 
-Installation
-------------
+## Installation
+
+Python 3.8 through Python 3.15 are supported.
 
     pip install httpie-asap-auth
 
-Python 3.8 through Python 3.14 are supported.
-
 You should now see `asap` and `asapenv` under `--auth-type` in the `$ http --help` output.
 
-Usage
------
+## Usage
 
     http --auth-type=asap --auth=path/to/asap.config http://example.com/
 
@@ -28,33 +25,30 @@ OR, to read from environment variables:
 
 Separate multiple audiences with a comma.
 
-Example ASAP Config
--------------------
+## Example ASAP Config
 
 Store your ASAP config in a file following this format:
 
-```json
-{
-    "issuer": "webapp/admin",
-    "kid": "webapp/admin/dev.pem",
-    "audience": [
-        "webapp"
-    ],
-    "sub": "administration",
-    "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
-}
-```
+    ```json
+    {
+        "issuer": "webapp/admin",
+        "kid": "webapp/admin/dev.pem",
+        "audience": [
+            "webapp"
+        ],
+        "sub": "administration",
+        "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
+    }
+    ```
 
 NB. the subject (`sub` field) is optional.
 
-Example Environment Variables
------------------------------
+## Example Environment Variables
 
     ASAP_PRIVATE_KEY=data:application/pkcs8;kid=webapp;base64,...
     ASAP_ISSUER=webapp/admin
 
-Generate a Data URI
--------------------
+## Generate a Data URI
 
 Generate a data URI, with the key in PKCS8 from an RSA private key PEM file:
 
@@ -69,8 +63,7 @@ Generate a data URI, with the key in PKCS8 from an RSA private key PEM file:
 
 (thanks to Brian McKenna)
 
-Development
------------
+## Development
 
 [Install uv](https://docs.astral.sh/uv/getting-started/installation/), then create
 the development environment from the committed lockfile:

@@ -1272,7 +1272,7 @@ wheels = [
 
 [[package]]
 name = "httpie-asap-auth"
-version = "0.4.0"
+version = "0.4.1"
 source = { editable = "." }
 dependencies = [
     { name = "atlassian-jwt-auth", version = "21.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },

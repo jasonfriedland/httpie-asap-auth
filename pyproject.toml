@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "httpie-asap-auth"
-version = "0.4.0"
+version = "0.4.1"
 description = "ASAP Auth plugin for HTTPie."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Environment :: Plugins",
     "License :: OSI Approved :: MIT License",
     "Topic :: Internet :: WWW/HTTP",
