@@ -1,7 +1,7 @@
 # httpie-asap-auth
 
 [![PyPi Package](https://img.shields.io/pypi/v/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
-[![PyPi Versions](https://img.shields.io/pypi/pyversions/httpie-asap-auth.svg)](https://pypi.python.org/pypi/httpie-asap-auth)
+[![PyPi Versions](https://pypi-camo.freetls.fastly.net/73d938bb8ffa2fa754351c502e49417e987e6a2e/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f6874747069652d617361702d617574682e737667)](https://pypi.python.org/pypi/httpie-asap-auth)
 [![Actions Status](https://github.com/jasonfriedland/httpie-asap-auth/workflows/test/badge.svg)](https://github.com/jasonfriedland/httpie-asap-auth/actions)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
