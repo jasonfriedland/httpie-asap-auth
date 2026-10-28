@@ -29,17 +29,17 @@ Separate multiple audiences with a comma.
 
 Store your ASAP config in a file following this format:
 
-    ```json
-    {
-        "issuer": "webapp/admin",
-        "kid": "webapp/admin/dev.pem",
-        "audience": [
-            "webapp"
-        ],
-        "sub": "administration",
-        "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
-    }
-    ```
+```json
+{
+    "issuer": "webapp/admin",
+    "kid": "webapp/admin/dev.pem",
+    "audience": [
+        "webapp"
+    ],
+    "sub": "administration",
+    "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
+}
+```
 
 NB. the subject (`sub` field) is optional.
 
