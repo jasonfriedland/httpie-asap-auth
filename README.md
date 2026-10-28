@@ -52,14 +52,16 @@ NB. the subject (`sub` field) is optional.
 
 Generate a data URI, with the key in PKCS8 from an RSA private key PEM file:
 
-    #!/bin/sh
+```shell
+#!/bin/sh
 
-    # Usage: $0 privatekey.pem
+# Usage: $0 privatekey.pem
 
-    KID=$(echo "$1" | sed 's|/|%2F|g')
-    KEY=$(openssl pkcs8 -topk8 -inform PEM -outform DER -in "$1" -nocrypt | base64 | tr '\n' ' ' | sed 's| ||g')
+KID=$(echo "$1" | sed 's|/|%2F|g')
+KEY=$(openssl pkcs8 -topk8 -inform PEM -outform DER -in "$1" -nocrypt | base64 | tr '\n' ' ' | sed 's| ||g')
 
-    echo "data:application/pkcs8;kid=$KID;base64,$KEY"
+echo "data:application/pkcs8;kid=$KID;base64,$KEY"
+```
 
 (thanks to Brian McKenna)
 
