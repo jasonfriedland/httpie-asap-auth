@@ -1,5 +1,5 @@
 name: test
-on: [push]
+on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -33,3 +33,5 @@ jobs:
         run: uv run --locked --group format black --check .
       - name: Build distributions
         run: make build
+      - name: Test installed wheel
+        run: make smoke

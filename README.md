@@ -17,36 +17,66 @@ You should now see `asap` and `asapenv` under `--auth-type` in the `$ http --hel
 
 ## Usage
 
-    http --auth-type=asap --auth=path/to/asap.config http://example.com/
+    http --auth-type=asap --auth=path/to/asap.config https://example.com/
 
 OR, to read from environment variables:
 
-    http --auth-type=asapenv --auth=audience[:subject] http://example.com/
+    http --auth-type=asapenv --auth=audience[:subject] https://example.com/
 
-Separate multiple audiences with a comma.
+Separate multiple audiences with a comma. Surrounding audience whitespace is
+ignored; empty audiences are rejected. The first colon separates the subject.
+For audiences containing colons or commas, use a JSON object instead:
+
+```sh
+http --auth-type=asapenv --auth='{"audience":["https://service.example","urn:service,secondary"],"sub":"administration"}' https://example.com/
+```
+
+The JSON form accepts an audience string or a nonempty list of strings. In both
+auth modes, omitting the subject defaults it to the issuer. Explicitly empty or
+null subjects are rejected.
 
 ## Example ASAP Config
 
 Store your ASAP config in a file following this format:
 
-    ```json
-    {
-        "issuer": "webapp/admin",
-        "kid": "webapp/admin/dev.pem",
-        "audience": [
-            "webapp"
-        ],
-        "sub": "administration",
-        "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
-    }
-    ```
+```json
+{
+    "issuer": "webapp/admin",
+    "kid": "webapp/admin/dev.pem",
+    "audience": ["webapp"],
+    "sub": "administration",
+    "privateKey": "-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----"
+}
+```
 
-NB. the subject (`sub` field) is optional.
+The `issuer`, `kid`, and private key must be nonempty strings. The `audience`
+can be a nonempty string or a nonempty list of strings. The `sub` field is optional.
+
+To keep the PEM key in a separate file, replace `privateKey` with `privateKeyFile`:
+
+```json
+{
+    "issuer": "webapp/admin",
+    "kid": "webapp/admin/dev.pem",
+    "audience": ["webapp"],
+    "privateKeyFile": "keys/private.pem"
+}
+```
+
+Specify exactly one of `privateKey` and `privateKeyFile`. Relative key-file paths
+are resolved against the configuration file's directory, regardless of the shell's
+working directory. Absolute paths are also accepted. Config and PEM files are
+read as UTF-8; keys must be unencrypted.
 
 ## Example Environment Variables
 
-    ASAP_PRIVATE_KEY=data:application/pkcs8;kid=webapp;base64,...
-    ASAP_ISSUER=webapp/admin
+```sh
+export ASAP_PRIVATE_KEY='data:application/pkcs8;kid=webapp;base64,...'
+export ASAP_ISSUER='webapp/admin'
+```
+
+Both variables must be nonempty. Use a complete data URI generated from your key
+in place of the abbreviated example.
 
 ## Generate a Data URI
 
@@ -85,6 +115,15 @@ Upgrade all dependencies and review the resulting lockfile with:
 Build the source and wheel distributions with:
 
     make build
+
+Build and install a fresh wheel into a temporary environment, then exercise both
+auth modes through HTTPie with signature and claim verification:
+
+    make smoke
+
+The smoke check installs dependencies (which may need network access), but HTTPie
+runs offline and sends no requests. It can also check an existing wheel with
+`uv run --no-project python scripts/smoke_wheel.py path/to/package.whl`.
 
 Maintainers can publish the built distributions after configuring uv's PyPI
 credentials:
