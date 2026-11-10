@@ -1,4 +1,4 @@
-.PHONY: all sync install lock upgrade test fmt build clean publish
+.PHONY: all sync install lock upgrade test fmt build smoke clean publish
 
 all: build
 
@@ -19,6 +19,9 @@ test:
 
 build:
 	uv build
+
+smoke:
+	uv run --no-project python scripts/smoke_wheel.py
 
 clean:
 	rm -rf build/ dist/ httpie_asap_auth.egg-info/
