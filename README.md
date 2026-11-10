@@ -5,7 +5,7 @@
 [![Actions Status](https://github.com/jasonfriedland/httpie-asap-auth/workflows/test/badge.svg)](https://github.com/jasonfriedland/httpie-asap-auth/actions)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-[ASAP](https://s2sauth.bitbucket.io/) Auth plugin for [HTTPie](https://httpie.org/).
+An [ASAP](https://s2sauth.bitbucket.io/) authentication plugin for [HTTPie](https://httpie.org/).
 
 ## Installation
 
@@ -19,15 +19,15 @@ You should now see `asap` and `asapenv` under `--auth-type` in the `$ http --hel
 
     http --auth-type=asap --auth=path/to/asap.config http://example.com/
 
-OR, to read from environment variables:
+Alternatively, to read from environment variables:
 
     http --auth-type=asapenv --auth=audience[:subject] http://example.com/
 
-Separate multiple audiences with a comma.
+Separate multiple audiences with commas.
 
 ## Example ASAP Config
 
-Store your ASAP config in a file following this format:
+Store your ASAP configuration in a file using the following format:
 
 ```json
 {
@@ -41,7 +41,7 @@ Store your ASAP config in a file following this format:
 }
 ```
 
-NB. the subject (`sub` field) is optional.
+Note: The subject (`sub` field) is optional.
 
 ## Example Environment Variables
 
@@ -50,7 +50,7 @@ NB. the subject (`sub` field) is optional.
 
 ## Generate a Data URI
 
-Generate a data URI, with the key in PKCS8 from an RSA private key PEM file:
+Generate a data URI containing a PKCS#8 key from an RSA private key in PEM format:
 
 ```shell
 #!/bin/sh
@@ -63,7 +63,7 @@ KEY=$(openssl pkcs8 -topk8 -inform PEM -outform DER -in "$1" -nocrypt | base64 |
 echo "data:application/pkcs8;kid=$KID;base64,$KEY"
 ```
 
-(thanks to Brian McKenna)
+Thanks to Brian McKenna.
 
 ## Development
 
